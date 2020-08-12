@@ -4,7 +4,7 @@ from gym_tsxoa.envs import PcgrlEnv
 import sys
 import os
 
-algorithms = ["BFS", "DFS", "AStar", "MCTS", "DeepMCTS", "HC", "SA", "ES", "GA"]
+algorithms = ["BFS", "DFS", "AStar", "MCTS", "HC", "SA", "ES", "GA"]
 oa_start = 5
 algorithms_dict = {
     "BFS": TS.BFS,
@@ -20,11 +20,6 @@ algorithms_dict = {
 
 problems = ["binary", "zelda", "sokoban"]
 representations = ["narrow", "turtle", "wide"]
-# c_value = {
-#     'binary': 50,
-#     'zelda': 20,
-#     'sokoban': 10
-# }
 c_value = {
     'binary': 5,
     'zelda': 5,
@@ -79,8 +74,6 @@ for i in range(size):
         env = PcgrlEnv(prob, rep)
         runner = algorithms_dict[algo](env)
         if algo == "MCTS":
-            runner.run(env, 60, c_value[prob])
-        elif algo == "DeepMCTS":
             runner.run(env, 60, c_value[prob], roll_value[prob])
         else:
             runner.run(env, 60)

@@ -56,7 +56,8 @@ class NarrowRepresentation(Representation):
     def get_state_key(self):
         map_size = self._map.shape[1] * self._map.shape[0]
         key = np.array2string(self._map.reshape(map_size,),separator="", max_line_width=map_size+1)[1:-1]
-        return '{}_{}'.format(key, self._index)
+        (x, y) = self._tiles[self._index % len(self._tiles)]
+        return '{}_{}_{}'.format(key, x, y)
 
     """
     Update the narrow representation with the input action
